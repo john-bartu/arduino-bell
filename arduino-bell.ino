@@ -6,6 +6,8 @@
 #include "WiFiEsp.h"
 #ifndef HAVE_HWSERIAL1
 #include "SoftwareSerial.h"
+//#include "LedControl.h"
+//LedControl lc = LedControl(11, 10, 9, 1);
 SoftwareSerial Serial1(5, 6); // RX, TX
 #endif
 
@@ -223,6 +225,7 @@ void loop()
         if (h == ALARMS[i].h) {
           if (m == ALARMS[i].m) {
             if (s == 0 || s == 1 || s == 2 || s == 3 || s == 4) {
+              //              PrintAlarm((String)i, (String)h, (String)m);
               ringBell();
             }
           }
@@ -264,6 +267,12 @@ void loop()
   mh = time_now.month();
   yr = time_now.year();
 
+  if (mode_day) {
+    //    PrintTime((String)h, (String)m, (String)s, (String)(dow + 1));
+  } else {
+    //    PrintData((String)dy, (String)mh, (String)yr);
+  }
+  //PrintAlarm("3","9","45");
   delay(100);
 }
 
@@ -332,3 +341,112 @@ void printWifiStatus()
   Serial.print(rssi);
   Serial.println(" dBm");
 }
+
+
+//
+//void PrintTime(String  h, String m, String s, String d) {
+//  //lc.clearDisplay(0);
+//  if (h.length() == 1) {
+//    lc.setChar(0, 7, '0', false);
+//    lc.setChar(0, 6, h[0], true);
+//  } else {
+//    lc.setChar(0, 7, h[0], false);
+//    lc.setChar(0, 6, h[1], true);
+//  }
+//
+//  if (m.length() == 1) {
+//    lc.setChar(0, 5, '0', false);
+//    lc.setChar(0, 4, m[0], true);
+//  } else {
+//    lc.setChar(0, 5, m[0], false);
+//    lc.setChar(0, 4, m[1], true);
+//  }
+//
+//  if (s.length() == 1) {
+//    lc.setChar(0, 3, '0', false);
+//    lc.setChar(0, 2, s[0], false);
+//  } else {
+//    lc.setChar(0, 3, s[0], false);
+//    lc.setChar(0, 2, s[1], false);
+//  }
+//
+//  lc.setChar(0, 1, ' ', false);
+//  lc.setChar(0, 0, d[0], false);
+//
+//}
+//void PrintData(String  d, String m, String y) {
+//  //lc.clearDisplay(0);
+//  if (d.length() == 1) {
+//    lc.setChar(0, 7, '0', false);
+//    lc.setChar(0, 6, d[0], true);
+//  } else {
+//    lc.setChar(0, 7, d[0], false);
+//    lc.setChar(0, 6, d[1], true);
+//  }
+//
+//
+//  if (m.length() == 1) {
+//    lc.setChar(0, 5, '0', false);
+//    lc.setChar(0, 4, m[0], true);
+//  } else {
+//    lc.setChar(0, 5, m[0], false);
+//    lc.setChar(0, 4, m[1], true);
+//  }
+//
+//
+//  lc.setChar(0, 3, y[0], false);
+//  lc.setChar(0, 2, y[1], false);
+//
+//  lc.setChar(0, 1, y[2], false);
+//  lc.setChar(0, 0, y[3], false);
+//}
+//void PrintAlarm(String a, String  h,  String m) {
+//  //lc.clearDisplay(0);
+//  lc.setChar(0, 7, 'A', false);
+//
+//  if (a.length() == 1) {
+//    lc.setChar(0, 6, ' ', false);
+//    lc.setChar(0, 5, a[0], false);
+//  } else {
+//    lc.setChar(0, 6, a[0], false);
+//    lc.setChar(0, 5, a[1], false);
+//  }
+//  lc.setChar(0, 4, ' ', false);
+//  if (h.length() == 1) {
+//    lc.setChar(0, 3, '0', false);
+//    lc.setChar(0, 2, h[0], true);
+//  } else {
+//    lc.setChar(0, 3, h[0], false);
+//    lc.setChar(0, 2, h[1], true);
+//  }
+//
+//  if (m.length() == 1) {
+//    lc.setChar(0, 1, '0', false);
+//    lc.setChar(0, 0, m[0], false);
+//  } else {
+//    lc.setChar(0, 1, m[0], false);
+//    lc.setChar(0, 0, m[1], false);
+//  }
+//}
+//
+//void printAlarm(int _h, int _m, bool _e) {
+//
+//  Serial.print(_h);
+//  Serial.print(":");
+//  Serial.print(_m);
+//  if (_e) {
+//    Serial.println(" Enabled");
+//  } else {
+//    Serial.println(" Disabled");
+//  }
+//}
+//
+//void printString(String s) {
+// lc.clearDisplay(0);
+//  for (int i = 0; i < 8; i++) {
+//    if (i < s.length()) {      lc.setChar(0, 7 - i, s[i], false);
+//    } else {
+//      lc.setChar(0, 7 - i, ' ', false);
+//    }
+//  }
+//}
